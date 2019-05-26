@@ -13,7 +13,14 @@ const runner = require('./test-runner');
 
 const app = express();
 
-app.use(helmet());
+app.use(
+	helmet({
+		noCache: true,
+		hidePoweredBy: {
+			setTo: 'PHP 4.2.0'
+		}
+	})
+);
 
 app.use(morgan('dev'));
 
