@@ -64,8 +64,20 @@ module.exports = function(app) {
 		})
 
 		.post(function(req, res) {
+			const timestamp = new Date();
 			const bookId = req.params.id;
-			const comment = req.body.comment;
+			const { comment } = req.body;
+
+			Book.findById(bookId, (_, data) => {
+				data.comments.push({ text: comment, date: timestamp });
+				data.save((err, data) => {
+					if (err) {
+						res.json({ error: 'error, failed to post comment' });
+					} else {
+						res.json(data);
+					}
+				});
+			});
 		})
 
 		.delete(function(req, res) {

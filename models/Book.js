@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
 	title: {
-		type: String
+		type: String,
+		required: true
 	},
-	comments: [{ body: String, date: Date }]
+	comments: [{ text: { type: String, required: true }, date: Date }]
 });
 
 module.exports = new mongoose.model('Book', bookSchema);
