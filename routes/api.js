@@ -33,7 +33,7 @@ module.exports = function(app) {
 
 		.post(function(req, res) {
 			const title = req.body.title;
-			if (!title) return res.json({ error: 'Error: no title given' });
+			if (!title) return res.json({ error: 'error, no title given' });
 
 			const book = new Book({ title });
 			book.save((err, data) => {
@@ -47,32 +47,29 @@ module.exports = function(app) {
 
 		.delete(function(req, res) {
 			//if successful response will be 'complete delete successful'
+			const bookId = req.params.id;
 		});
 
 	app
 		.route('/api/books/:id')
 		.get(function(req, res) {
-			const bookid = req.params.id;
-			//json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
-			Book.findById(bookid, (err, data) => {
+			const bookId = req.params.id;
+			Book.findById(bookId, (err, data) => {
 				if (err) {
-					console.log(err.message);
-					res.json(err.message);
+					res.json({ error: `error, _id: ${bookId} not in database` });
 				} else {
-					console.log(data);
 					res.json(data);
 				}
 			});
 		})
 
 		.post(function(req, res) {
-			var bookid = req.params.id;
-			var comment = req.body.comment;
-			//json res format same as .get
+			const bookId = req.params.id;
+			const comment = req.body.comment;
 		})
 
 		.delete(function(req, res) {
-			var bookid = req.params.id;
+			const bookId = req.params.id;
 			//if successful response will be 'delete successful'
 		});
 };
