@@ -109,7 +109,7 @@ suite('Functional Tests', function() {
 			test('Test GET /api/books/[id] with valid id in db', function(done) {
 				chai
 					.request(server)
-					.get('/api/books/5cebdb46896a8e409ba4a6ab')
+					.get('/api/books/5cebde15dcdac2450a0b6a54')
 					.end(function(err, res) {
 						assert.equal(res.status, 200);
 						assert.equal(
@@ -122,7 +122,7 @@ suite('Functional Tests', function() {
 							'_id',
 							'Response should contain book _id'
 						);
-						assert.equal(res.body._id, '5cebdb46896a8e409ba4a6ab');
+						assert.equal(res.body._id, '5cebde15dcdac2450a0b6a54');
 						assert.property(
 							res.body,
 							'title',
@@ -146,7 +146,7 @@ suite('Functional Tests', function() {
 			test('Test POST /api/books/[id] comment posted successfully', function(done) {
 				chai
 					.request(server)
-					.post('/api/books/5cebdb46896a8e409ba4a6ab')
+					.post('/api/books/5cebde15dcdac2450a0b6a54')
 					.send({ comment: 'test comment' })
 					.end(function(err, res) {
 						assert.equal(res.status, 200);
@@ -160,7 +160,7 @@ suite('Functional Tests', function() {
 							'_id',
 							'Response should contain book _id'
 						);
-						assert.equal(res.body._id, '5cebdb46896a8e409ba4a6ab');
+						assert.equal(res.body._id, '5cebde15dcdac2450a0b6a54');
 						assert.property(
 							res.body,
 							'title',
@@ -182,7 +182,7 @@ suite('Functional Tests', function() {
 			test('Test POST /api/books/[id] error posting comment', function(done) {
 				chai
 					.request(server)
-					.post('/api/books/5cebdb46896a8e409ba4a6ab')
+					.post('/api/books/5cebde15dcdac2450a0b6a54')
 					.send({})
 					.end(function(err, res) {
 						assert.equal(res.status, 200);
@@ -203,7 +203,7 @@ suite('Functional Tests', function() {
 				test('Test DELETE /api/books/[id] book deleted successfully', function(done) {
 					chai
 						.request(server)
-						.delete('/api/books/5cebdb6ac1f71440b6ec96ff')
+						.delete('/api/books/5cebde3b7c70424530d52367')
 						.send()
 						.end(function(err, res) {
 							assert.equal(res.status, 200);
