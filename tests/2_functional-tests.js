@@ -14,39 +14,6 @@ const server = require('../server');
 chai.use(chaiHttp);
 
 suite('Functional Tests', function() {
-	/*
-	 * ----[EXAMPLE TEST]----
-	 * Each test should completely test the response of the API end-point including response status code!
-	 */
-	// test('#example Test GET /api/books', function(done) {
-	// 	chai
-	// 		.request(server)
-	// 		.get('/api/books')
-	// 		.end(function(err, res) {
-	// 			assert.equal(res.status, 200);
-	// 			assert.isArray(res.body, 'response should be an array');
-	// 			assert.property(
-	// 				res.body[0],
-	// 				'commentcount',
-	// 				'Books in array should contain commentcount'
-	// 			);
-	// 			assert.property(
-	// 				res.body[0],
-	// 				'title',
-	// 				'Books in array should contain title'
-	// 			);
-	// 			assert.property(
-	// 				res.body[0],
-	// 				'_id',
-	// 				'Books in array should contain _id'
-	// 			);
-	// 			done();
-	// 		});
-	// });
-	/*
-	 * ----[END of EXAMPLE TEST]----
-	 */
-
 	suite('Routing tests', function() {
 		suite(
 			'POST /api/books with title => create book object/expect book object',
@@ -122,43 +89,6 @@ suite('Functional Tests', function() {
 			});
 		});
 
-		// suite(
-		// 	'DELETE /api/books => delete all books, return success message',
-		// 	function() {
-		// 		test('Test DELETE /api/books successful deletion', function(done) {
-		// 			chai
-		// 				.request(server)
-		// 				.delete('/api/books')
-		// 				.end(function(err, res) {
-		// 					assert.equal(res.status, 200);
-		// 					assert.equal(
-		// 						res.type,
-		// 						'application/json',
-		// 						'Response should be json'
-		// 					);
-		// 					assert.equal(res.body.message, 'complete delete successful');
-		// 					done();
-		// 				});
-		// 		});
-
-		// 		test('Test DELETE /api/books delete unsuccessful, error returned', function(done) {
-		// 			chai
-		// 				.request(server)
-		// 				.delete('/api/books')
-		// 				.end(function(err, res) {
-		// 					assert.equal(res.status, 200);
-		// 					assert.equal(
-		// 						res.type,
-		// 						'application/json',
-		// 						'Response should be json'
-		// 					);
-		// 					assert.equal(res.body.error, 'error, delete unsuccessful');
-		// 					done();
-		// 				});
-		// 		});
-		// 	}
-		// );
-
 		suite('GET /api/books/[id] => book object with [id]', function() {
 			test('Test GET /api/books/[id] with id not in db', function(done) {
 				chai
@@ -179,7 +109,7 @@ suite('Functional Tests', function() {
 			test('Test GET /api/books/[id] with valid id in db', function(done) {
 				chai
 					.request(server)
-					.get('/api/books/5cebd02537f8f83672e690ab')
+					.get('/api/books/5cebdb46896a8e409ba4a6ab')
 					.end(function(err, res) {
 						assert.equal(res.status, 200);
 						assert.equal(
@@ -192,7 +122,7 @@ suite('Functional Tests', function() {
 							'_id',
 							'Response should contain book _id'
 						);
-						assert.equal(res.body._id, '5cebd02537f8f83672e690ab');
+						assert.equal(res.body._id, '5cebdb46896a8e409ba4a6ab');
 						assert.property(
 							res.body,
 							'title',
@@ -216,7 +146,7 @@ suite('Functional Tests', function() {
 			test('Test POST /api/books/[id] comment posted successfully', function(done) {
 				chai
 					.request(server)
-					.post('/api/books/5cebd02537f8f83672e690ab')
+					.post('/api/books/5cebdb46896a8e409ba4a6ab')
 					.send({ comment: 'test comment' })
 					.end(function(err, res) {
 						assert.equal(res.status, 200);
@@ -230,7 +160,7 @@ suite('Functional Tests', function() {
 							'_id',
 							'Response should contain book _id'
 						);
-						assert.equal(res.body._id, '5cebd02537f8f83672e690ab');
+						assert.equal(res.body._id, '5cebdb46896a8e409ba4a6ab');
 						assert.property(
 							res.body,
 							'title',
@@ -252,7 +182,7 @@ suite('Functional Tests', function() {
 			test('Test POST /api/books/[id] error posting comment', function(done) {
 				chai
 					.request(server)
-					.post('/api/books/5cebd02537f8f83672e690ab')
+					.post('/api/books/5cebdb46896a8e409ba4a6ab')
 					.send({})
 					.end(function(err, res) {
 						assert.equal(res.status, 200);
@@ -267,41 +197,64 @@ suite('Functional Tests', function() {
 			});
 		});
 
-		// suite(
-		// 	'DELETE /api/books/[id] => delete book/expect return text',
-		// 	function() {
-		// 		test('Test DELETE /api/books/[id] book deleted successfully', function(done) {
-		// 			chai
-		// 				.request(server)
-		// 				.delete('/api/books/5cebc82e80343d2f7735b641')
-		// 				.end(function(err, res) {
-		// 					assert.equal(res.status, 200);
-		// 					assert.equal(
-		// 						res.type,
-		// 						'application/json',
-		// 						'Response should be json'
-		// 					);
-		// 					assert.equal(res.body.message, 'delete successful');
-		// 					done();
-		// 				});
-		// 		});
+		suite(
+			'DELETE /api/books/[id] => delete book/expect return text',
+			function() {
+				test('Test DELETE /api/books/[id] book deleted successfully', function(done) {
+					chai
+						.request(server)
+						.delete('/api/books/5cebdb6ac1f71440b6ec96ff')
+						.send()
+						.end(function(err, res) {
+							assert.equal(res.status, 200);
+							assert.equal(
+								res.type,
+								'application/json',
+								'Response should be json'
+							);
+							assert.equal(res.body.message, 'delete successful');
+							done();
+						});
+				});
 
-		// 		test('Test DELETE /api/books[id] delete unsuccessful, error returned', function(done) {
-		// 			chai
-		// 				.request(server)
-		// 				.delete('/api/books/5cebc82e80343d2f7735b641')
-		// 				.end(function(err, res) {
-		// 					assert.equal(res.status, 200);
-		// 					assert.equal(
-		// 						res.type,
-		// 						'application/json',
-		// 						'Response should be json'
-		// 					);
-		// 					assert.equal(res.body.error, 'error, delete unsuccessful');
-		// 					done();
-		// 				});
-		// 		});
-		// 	}
-		// );
+				test('Test DELETE /api/books[id] delete unsuccessful, error returned', function(done) {
+					chai
+						.request(server)
+						.delete('/api/books/12354123')
+						.send()
+						.end(function(err, res) {
+							assert.equal(res.status, 200);
+							assert.equal(
+								res.type,
+								'application/json',
+								'Response should be json'
+							);
+							assert.equal(res.body.error, 'error, delete unsuccessful');
+							done();
+						});
+				});
+			}
+		);
+
+		suite(
+			'DELETE /api/books => delete all books, return success message',
+			function() {
+				test('Test DELETE /api/books successful deletion', function(done) {
+					chai
+						.request(server)
+						.delete('/api/books')
+						.end(function(err, res) {
+							assert.equal(res.status, 200);
+							assert.equal(
+								res.type,
+								'application/json',
+								'Response should be json'
+							);
+							assert.equal(res.body.message, 'complete delete successful');
+							done();
+						});
+				});
+			}
+		);
 	});
 });

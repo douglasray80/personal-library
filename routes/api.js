@@ -46,8 +46,13 @@ module.exports = function(app) {
 		})
 
 		.delete(function(req, res) {
-			//if successful response will be 'complete delete successful'
-			const bookId = req.params.id;
+			Book.remove((err, data) => {
+				if (err) {
+					res.json({ error: 'error, delete unsuccessful' });
+				} else {
+					res.json({ message: 'complete delete successful' });
+				}
+			});
 		});
 
 	app
@@ -82,6 +87,12 @@ module.exports = function(app) {
 
 		.delete(function(req, res) {
 			const bookId = req.params.id;
-			//if successful response will be 'delete successful'
+			Book.findByIdAndDelete(bookId, (err, data) => {
+				if (err) {
+					res.json({ error: 'error, delete unsuccessful' });
+				} else {
+					res.json({ message: 'delete successful' });
+				}
+			});
 		});
 };
